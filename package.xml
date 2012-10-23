@@ -22,10 +22,10 @@
   <email>damlists@cnba.uba.ar</email>
   <active>no</active>
  </lead>
- <date>2012-01-02</date>
- <time>12:20:29</time>
+ <date>2012-10-24</date>
+ <time>08:42:16</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -35,22 +35,17 @@
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
 QA release
-Bug #14566 Error in parsing protocol
-Bug #16288 getMessagesList breaks if mailbox is empty
-Bug #16819 IMAPProtocol::cmdStatus fails on error
-Bug #16891 bug in IMAPProtocol.php
-aka operator precedence error in _getNextToken
-Bug #18599 Wrong result from getAnnotation() for folder with non-ascii characters
-Bug #18768 failed to connect to Gmail (start TLS)
+Bug #19240	Wrong error message in Net_IMAPProtocol::_genericCommand()
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="5c0ba56d97e907f96fab92e80edc7134" name="docs/test_IMAP.php" role="test" />
    <file baseinstalldir="Net" md5sum="c3547119c9651516102901d3285e50a1" name="docs/test_IMAPProtocol.php" role="test" />
-   <file baseinstalldir="/" md5sum="e7d2de7d8a7e0ebea5257af991f6d634" name="Net/IMAP.php" role="php" />
-   <file baseinstalldir="/" md5sum="bb12925da13d18ccae5df4a9f9996045" name="Net/IMAPProtocol.php" role="php" />
-   <file baseinstalldir="/" md5sum="85b3f9da805dcc25a3319a3337f98616" name="tests/IMAPTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="6bb7cc31c8fab7a9f69c34d42c7ec4d8" name="Net/IMAP.php" role="php" />
+   <file baseinstalldir="/" md5sum="a32c5fc1e92265d236f375d07e817847" name="Net/IMAPProtocol.php" role="php" />
+   <file baseinstalldir="/" md5sum="101d3b41198232aaf74c3fb73f0aa541" name="tests/IMAPTest.php" role="test" />
    <file baseinstalldir="Net" md5sum="110ca6376a7940a7af8dc558199bbe66" name="tests/settings.php.sample" role="test" />
+   <file baseinstalldir="/" md5sum="671dae113c8fec2ab0b30be93f0507c1" name="phpunit.xml" role="data" />
    <file baseinstalldir="/" md5sum="69b080fed44decd9d15719dca27ae908" name="README" role="data" />
   </dir>
  </contents>
@@ -391,6 +386,22 @@ Bug #16891 bug in IMAPProtocol.php
 aka operator precedence error in _getNextToken
 Bug #18599 Wrong result from getAnnotation() for folder with non-ascii characters
 Bug #18768 failed to connect to Gmail (start TLS)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2012-10-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release
+Bug #19240	Wrong error message in Net_IMAPProtocol::_genericCommand()
    </notes>
   </release>
  </changelog>
