@@ -26,6 +26,7 @@ require_once 'Net/Socket.php';
  * @category Networking
  * @package  Net_IMAP
  * @author   Damian Alejandro Fernandez Sosa <damlists@cnba.uba.ar>
+ * @authro   Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license  PHP license
  * @link     http://pear.php.net/package/Net_IMAP
  */
@@ -157,17 +158,38 @@ class Net_IMAPProtocol
      */
     var $_encoding = 'ISO-8859-1';
 
+    /**
+     * Progress callback function for large writes:
+     *
+     * _progressCallback($current, $target);
+     *
+     */
+    var $_progressCallback;
+
+    /**
+     * Chunk-size for the progress callback.
+     *
+     */
+    var $_chunkSize;
+
 
     /**
      * Constructor
      *
      * Instantiates a new Net_IMAP object.
      *
+     * @param function $progressCallback($pos, $total) Optional progress-callback
+     *     to provide feedback during large data transfers.
+     * @param function $chunkSize Optional chunk size for data
+     *     transfers, for use in conjunction with $progressCallback()
+     *
      * @since  1.0
      */
-    function Net_IMAPProtocol()
+    function Net_IMAPProtocol($progressCallback = null, $chunkSize = null)
     {
         $this->_socket = new Net_Socket();
+        $this->_progressCallback = $progressCallback;
+        $this->_chunkSize = $chunkSize;
 
         /*
          * Include the Auth_SASL package.  If the package is not available,
@@ -330,7 +352,7 @@ class Net_IMAPProtocol
         if ($this->_socket->eof()) {
             return new PEAR_Error('Failed to write to socket: (connection lost!)');
         }
-        $error = $this->_socket->write($data);
+        $error = $this->_socket->write($data, $this->_chunkSize, $this->_progressCallback);
         if ($error instanceOf PEAR_Error) {
             return new PEAR_Error('Failed to write to socket: '
                                   . $error->getMessage());

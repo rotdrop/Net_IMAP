@@ -8,6 +8,7 @@
  * @category  Networking
  * @package   Net_IMAP
  * @author    Damian Alejandro Fernandez Sosa <damlists@cnba.uba.ar>
+ * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 1997-2003 The PHP Group
  * @license   PHP license
  * @version   CVS: $Id$
@@ -42,13 +43,19 @@ class Net_IMAP extends Net_IMAPProtocol
      * @param int    $port           The port to connect to.
      * @param bool   $enableSTARTTLS Enable STARTTLS support
      * @param string $encoding       Character encoding
+     * @param function $progressCallback($pos, $total) Optional progress-callback
+     *     to provide feedback during large data transfers.
+     * @param function $chunkSize Optional chunk size for data
+     *     transfers, for use in conjunction with $progressCallback()
      */
     function Net_IMAP($host = 'localhost',
                       $port = 143,
                       $enableSTARTTLS = true,
-                      $encoding = 'ISO-8859-1')
+                      $encoding = 'ISO-8859-1',
+                      $progressCallback = null,
+                      $chunkSize = null)
     {
-        $this->Net_IMAPProtocol();
+        $this->Net_IMAPProtocol($progressCallback, $chunkSize);
         $ret             = $this->connect($host, $port, $enableSTARTTLS);
         $this->_encoding = $encoding;
     }
