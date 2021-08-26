@@ -185,7 +185,7 @@ class Net_IMAPProtocol
      *
      * @since  1.0
      */
-    function Net_IMAPProtocol($progressCallback = null, $chunkSize = null)
+    function __construct($progressCallback = null, $chunkSize = null)
     {
         $this->_socket = new Net_Socket();
         $this->_progressCallback = $progressCallback;
@@ -203,7 +203,10 @@ class Net_IMAPProtocol
         }
     }
 
-
+    function Net_IMAPProtocol($progressCallback = null, $chunkSize = null)
+    {
+      self::__construct($progressCallback, $chunkSize);
+    }
 
     /**
      * Attempt to connect to the IMAP server.

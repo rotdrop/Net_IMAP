@@ -48,6 +48,18 @@ class Net_IMAP extends Net_IMAPProtocol
      * @param function $chunkSize Optional chunk size for data
      *     transfers, for use in conjunction with $progressCallback()
      */
+    function __construct($host = 'localhost',
+                         $port = 143,
+                         $enableSTARTTLS = true,
+                         $encoding = 'ISO-8859-1',
+                         $progressCallback = null,
+                         $chunkSize = null)
+    {
+        parent::__construct($progressCallback, $chunkSize);
+        $ret             = $this->connect($host, $port, $enableSTARTTLS);
+        $this->_encoding = $encoding;
+    }
+
     function Net_IMAP($host = 'localhost',
                       $port = 143,
                       $enableSTARTTLS = true,
@@ -55,12 +67,8 @@ class Net_IMAP extends Net_IMAPProtocol
                       $progressCallback = null,
                       $chunkSize = null)
     {
-        $this->Net_IMAPProtocol($progressCallback, $chunkSize);
-        $ret             = $this->connect($host, $port, $enableSTARTTLS);
-        $this->_encoding = $encoding;
+        self::__construct($host, $port, $enableSTARTTLS, $encoding, $progressCallback, $chunkSize);
     }
-
-
 
     /**
      * Attempt to connect to the IMAP server located at $host $port
